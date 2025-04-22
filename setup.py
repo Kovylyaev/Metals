@@ -11,7 +11,7 @@ def main():
         author='Kovylyaev',
         description='Carbon regr in metals micros',
         packages=find_packages(),
-        python_requires='>=3.12',
+        python_requires='>=3.9',
         url="https://github.com/Kovylyaev/Metals",
         install_requires=reqs,
     )
