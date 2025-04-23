@@ -1,6 +1,6 @@
 outs:
-- md5: 406be68eda666ff6a61ca6017d94d33f.dir
-  size: 465351354
-  nfiles: 961
+- md5: 549760a2e2244dd32575013e2b41d80f.dir
+  size: 67470619
+  nfiles: 166
   hash: md5
   path: UHCSDB

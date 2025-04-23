@@ -15,12 +15,13 @@ def main(answer_file, crop):
         image = image.convert('RGB')
         if int(crop):
             image = image.crop((5, 25, image.size[0] - 5, image.size[1] - 25))
+        Path(fullpath).unlink()
 
         width, height = image.size
         if width < 224 or height < 224:
-            raise ValueError(f'Be careful, size of {new_path} is less, then 224')
+            print(f'Be careful, size of {new_path} is less, then 224. It will be deleted')
+            continue
 
-        Path(fullpath).unlink()
         image.save(new_path)
 
         if fullpath != new_path:
