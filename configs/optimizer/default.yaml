@@ -1,0 +1,6 @@
+# default.yaml
+
+_target_: torch.optim.Adam
+
+params: null
+lr: 1e-3

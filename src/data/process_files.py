@@ -31,7 +31,7 @@ def main(clear_dir, source_dir, target_dir, file_format, target_value, answer_fi
         target_path = target_img_dir.joinpath(new_file)
         shutil.copy(file_path, target_path)
         
-        path_to_C[target_path] = {'C': target_value}
+        path_to_C[target_path.resolve()] = {'C': int(target_value)}
 
     answers = pd.DataFrame.from_dict(path_to_C, orient='index')
     answers.to_csv(answer_file)

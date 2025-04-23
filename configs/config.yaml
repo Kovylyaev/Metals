@@ -1,0 +1,16 @@
+defaults:
+  - _self_
+  - dataset: default
+  - model: default
+  - training: default
+  - optimizer: default
+  - criterion: default
+  - scheduler: default
+
+project:
+  name: "Metals"
+  seed: 42
+  device: "cuda"
+
+  wandb_entity: "sasha_kovylyaev-hse"
+  experiment_name: "default"

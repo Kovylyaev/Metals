@@ -1,0 +1,6 @@
+#default.yaml
+
+_target_: src.models.default.DefaultModel
+
+weights: null
+num_classes: 2

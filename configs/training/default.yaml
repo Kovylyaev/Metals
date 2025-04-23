@@ -1,0 +1,13 @@
+# default.yaml
+
+img_dir: data/prepared_data/images
+answer_file: data/prepared_data/answer.csv
+
+batch_size: 32
+n_epochs: 10
+
+train_size: 0.7
+val_size: 0.15
+test_size: 0.15
+
+precision: 32

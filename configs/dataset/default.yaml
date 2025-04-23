@@ -1,0 +1,9 @@
+#default.yaml
+
+_target_: src.datasets.default.DefaultDataset
+
+img_paths: null
+answers_file: null
+transform: null
+augment: null
+train: null
