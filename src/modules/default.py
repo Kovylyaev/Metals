@@ -52,6 +52,7 @@ class DefaultModule(L.LightningModule):
 
         batch_metrics = self.train_metrics(preds, y)
         self.log_dict(batch_metrics, on_step=True, on_epoch=True)
+        self.log("train_loss", loss)
         return loss
     
     def validation_step(self, batch, batch_idx):
@@ -68,6 +69,7 @@ class DefaultModule(L.LightningModule):
 
         batch_metrics = self.test_metrics(preds, y)
         self.log_dict(batch_metrics, on_step=True, on_epoch=True)
+        self.log("val_loss", loss)
         return loss
     
     def test_step(self, batch, batch_idx):
@@ -84,6 +86,7 @@ class DefaultModule(L.LightningModule):
 
         batch_metrics = self.test_metrics(preds, y)
         self.log_dict(batch_metrics, on_step=True, on_epoch=True)
+        self.log("test_loss", loss)
         return loss
 
     def on_train_epoch_end(self):

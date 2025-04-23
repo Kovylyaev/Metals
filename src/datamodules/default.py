@@ -17,7 +17,9 @@ class DefaultDataModule(L.LightningDataModule):
         self.transform = transform
         self.augment = augment
 
-    def prepare_data(self):
+        self._prepare_data()
+
+    def _prepare_data(self):
         try:
             print("Подготовка данных...")
             subprocess.run(['make', '-C', str(Path.cwd().parent), 'prepare_data'], check=True, text=True, capture_output=True)
@@ -26,28 +28,27 @@ class DefaultDataModule(L.LightningDataModule):
             print("Ошибка при подготовке данных:")
             print(e.stderr)
             raise e
-        pass
+        self.train_imgs, self.val_imgs, self.test_imgs = random_split(list(self.img_dir.iterdir()), [self.cfg.training.train_size, self.cfg.training.val_size, self.cfg.training.test_size])
             
     def setup(self, stage: str):
         # Assign train/test datasets for use in dataloaders
-        train_imgs, val_imgs, test_imgs = random_split(list(self.img_dir.iterdir()), [self.cfg.training.train_size, self.cfg.training.val_size, self.cfg.training.test_size])
 
         self.train_dataset = instantiate(self.cfg.dataset,
-            img_paths=train_imgs,
+            img_paths=self.train_imgs,
             answers_file=str(self.answer_file),
             transform=self.transform,
             augment=self.augment,
             train=True
         )
         self.val_dataset = instantiate(self.cfg.dataset,
-            img_paths=val_imgs,
+            img_paths=self.val_imgs,
             answers_file=str(self.answer_file),
             transform=self.transform,
             augment=self.augment,
             train=False
         )
         self.test_dataset = instantiate(self.cfg.dataset,
-            img_paths=test_imgs,
+            img_paths=self.test_imgs,
             answers_file=str(self.answer_file),
             transform=self.transform,
             augment=self.augment,

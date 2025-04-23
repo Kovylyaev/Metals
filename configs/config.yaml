@@ -13,4 +13,4 @@ project:
   device: "cuda"
 
   wandb_entity: "sasha_kovylyaev-hse"
-  experiment_name: "default"
+  experiment_name: "default1"

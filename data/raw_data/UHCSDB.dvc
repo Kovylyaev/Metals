@@ -1,0 +1,6 @@
+outs:
+- md5: 406be68eda666ff6a61ca6017d94d33f.dir
+  size: 465351354
+  nfiles: 961
+  hash: md5
+  path: UHCSDB
