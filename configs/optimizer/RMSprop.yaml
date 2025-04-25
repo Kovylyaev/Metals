@@ -1,0 +1,6 @@
+# RMSprop.yaml
+
+_target_: torch.optim.RMSprop
+
+params: null
+lr: 1e-3

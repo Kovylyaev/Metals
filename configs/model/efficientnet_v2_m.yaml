@@ -1,0 +1,6 @@
+#efficientnet_v2_m.yaml
+
+_target_: src.models.efficientnet_v2_m.efficientnet_v2_mModel
+
+weights: null
+output_dim: 1

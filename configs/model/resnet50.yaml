@@ -1,4 +1,4 @@
-#default.yaml
+#resnet50.yaml
 
 _target_: src.models.resnet50.ResNet50Model
 

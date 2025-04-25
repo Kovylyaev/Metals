@@ -1,0 +1,6 @@
+# Adagrad.yaml
+
+_target_: torch.optim.Adagrad
+
+params: null
+lr: 1e-3

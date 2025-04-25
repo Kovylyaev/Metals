@@ -1,0 +1,6 @@
+# CosineAnnealingWarmRestarts.yaml
+
+_target_: torch.optim.lr_scheduler.CosineAnnealingWarmRestarts
+
+optimizer: null
+T_0: 10

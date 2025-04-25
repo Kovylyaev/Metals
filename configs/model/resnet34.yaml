@@ -1,4 +1,4 @@
-#default.yaml
+#resnet34.yaml
 
 _target_: src.models.resnet34.ResNet34Model
 

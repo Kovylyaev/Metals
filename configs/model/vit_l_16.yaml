@@ -1,0 +1,6 @@
+#vit_l_16.yaml
+
+_target_: src.models.vit_l_16.vit_l_16Model
+
+weights: null
+output_dim: 1

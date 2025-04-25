@@ -1,0 +1,6 @@
+# cosinelr.yaml
+
+_target_: torch.optim.lr_scheduler.CosineAnnealingLR
+
+optimizer: null
+T_max: 25

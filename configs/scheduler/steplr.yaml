@@ -1,0 +1,6 @@
+# steplr.yaml
+
+_target_: torch.optim.lr_scheduler.StepLR
+
+optimizer: null
+step_size: 4

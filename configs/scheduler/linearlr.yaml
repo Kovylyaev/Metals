@@ -1,0 +1,5 @@
+# linearlr.yaml
+
+_target_: torch.optim.lr_scheduler.LinearLR
+
+optimizer: null

@@ -1,0 +1,6 @@
+# SGD.yaml
+
+_target_: torch.optim.SGD
+
+params: null
+lr: 1e-3

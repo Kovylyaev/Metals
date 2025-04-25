@@ -1,0 +1,6 @@
+# AdamW.yaml
+
+_target_: torch.optim.AdamW
+
+params: null
+lr: 1e-3

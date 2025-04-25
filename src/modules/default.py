@@ -21,7 +21,7 @@ class DefaultModule(L.LightningModule):
         self.model = instantiate(cfg.model).model
         self.optimizer = instantiate(cfg.optimizer, params=self.model.parameters())
         self.criterion = instantiate(cfg.criterion)
-        self.scheduler = instantiate(cfg.scheduler) if cfg.scheduler['_target_'] else None
+        self.scheduler = instantiate(cfg.scheduler, optimizer=self.optimizer) if cfg.scheduler['_target_'] else None
 
         self.train_metrics = torchmetrics.MetricCollection(
             {

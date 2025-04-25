@@ -1,0 +1,6 @@
+#mobilenet_v3_large.yaml
+
+_target_: src.models.mobilenet_v3_large.mobilenet_v3_largeModel
+
+weights: null
+output_dim: 1
