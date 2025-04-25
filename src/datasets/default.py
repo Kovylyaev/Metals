@@ -5,7 +5,7 @@ from pathlib import Path
 
 
 class DefaultDataset(torch.utils.data.Dataset):
-    def __init__(self, img_paths: list[str], answers_file: str, transform, augment, train: bool):
+    def __init__(self, img_paths: list[str], answers_file: str, target_column: str, transform, augment, train: bool):
         """Initializes Dataset with passed files.
         Args:
             img_paths: paths (Path) to files with microstructures,
@@ -16,6 +16,7 @@ class DefaultDataset(torch.utils.data.Dataset):
         """
         self.img_paths = img_paths
         self.answers = pd.read_csv(answers_file, index_col=0)
+        self.target_column = target_column
         self.transform = transform
         self.augment = augment
         self.train = train
@@ -29,18 +30,22 @@ class DefaultDataset(torch.utils.data.Dataset):
         Args:
             idx - index of the image.
         Returns:
-            image with microstructure and C concentration.
+            Image with microstructure,
+            target concentration,
+            sample weight
+            scaler
         """
 
-        path = str(self.img_paths[idx])
+        path = self.img_paths[idx]
 
         img = self.transform(Image.open(path))
-        answer = self.answers.loc[path]['C']
+        answer = self.answers.loc[path][self.target_column]
+        weight = self.answers.loc[path]['weight']
 
         if self.train:
             img = self.augment(img)
 
-        return img, answer
+        return img, answer, weight
 
 
     def __len__(self):

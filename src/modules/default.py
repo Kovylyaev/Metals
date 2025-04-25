@@ -2,11 +2,12 @@ import lightning as L
 import torch
 import torchmetrics
 from hydra.utils import instantiate
+import numpy as np
 
-from src.metrics import Accuracy
+from src.metrics import RMSE
 
 class DefaultModule(L.LightningModule):
-    def __init__(self, cfg):
+    def __init__(self, cfg, scaler):
         """
             Инициализирует модель.
             
@@ -15,6 +16,7 @@ class DefaultModule(L.LightningModule):
                 training_config - конфигурация обучения
         """
         super().__init__()
+        self.scaler = scaler
 
         self.model = instantiate(cfg.model).model
         self.optimizer = instantiate(cfg.optimizer, params=self.model.parameters())
@@ -23,10 +25,11 @@ class DefaultModule(L.LightningModule):
 
         self.train_metrics = torchmetrics.MetricCollection(
             {
-                "acc": Accuracy(),
+                "rmse": RMSE(),
             },
             prefix="train_"
         )
+        self.val_metrics = self.train_metrics.clone(prefix="val_")
         self.test_metrics = self.train_metrics.clone(prefix="test_")
 
     def forward(self, x):
@@ -46,12 +49,13 @@ class DefaultModule(L.LightningModule):
                 batch - tuple (x, y)
                 batch_idx - индекс батча
         """
-        x, y = batch
+        x, y, weights = batch
+        y = torch.tensor(self.scaler.transform(y.cpu().reshape(-1, 1))).float().to(torch.device('mps'))
         preds = self.model(x)
-        loss = self.criterion(preds, y)
+        loss = self.criterion(preds, y, weights)
 
-        batch_metrics = self.train_metrics(preds, y)
-        self.log_dict(batch_metrics, on_step=True, on_epoch=True)
+        batch_metrics = self.train_metrics(self.scaler.inverse_transform(preds.detach().cpu()), self.scaler.inverse_transform(y.cpu()))
+        self.log_dict(batch_metrics, on_step=False, on_epoch=True)
         self.log("train_loss", loss)
         return loss
     
@@ -63,12 +67,13 @@ class DefaultModule(L.LightningModule):
                 batch - tuple (x, y)
                 batch_idx - индекс батча
         """
-        x, y = batch
+        x, y, _ = batch
+        y = torch.tensor(self.scaler.transform(y.cpu().reshape(-1, 1))).float().to(torch.device('mps'))
         preds = self.model(x)
-        loss = self.criterion(preds, y)
+        loss = self.criterion(preds, y, None)
 
-        batch_metrics = self.test_metrics(preds, y)
-        self.log_dict(batch_metrics, on_step=True, on_epoch=True)
+        batch_metrics = self.val_metrics(self.scaler.inverse_transform(preds.cpu()), self.scaler.inverse_transform(y.cpu()))
+        self.log_dict(batch_metrics, on_step=False, on_epoch=True)
         self.log("val_loss", loss)
         return loss
     
@@ -80,14 +85,17 @@ class DefaultModule(L.LightningModule):
                 batch - tuple (x, y)
                 batch_idx - индекс батча
         """
-        x, y = batch
+        x, y, _ = batch
+        y = torch.tensor(self.scaler.transform(y.cpu().reshape(-1, 1))).float().to(torch.device('mps'))
         preds = self.model(x)
-        loss = self.criterion(preds, y)
+        loss = self.criterion(preds, y, None)
 
-        batch_metrics = self.test_metrics(preds, y)
-        self.log_dict(batch_metrics, on_step=True, on_epoch=True)
-        self.log("test_loss", loss)
-        return loss
+        batch_metrics = self.test_metrics(self.scaler.inverse_transform(preds.cpu()), self.scaler.inverse_transform(y.cpu()))
+        return loss, batch_metrics
+    
+    def predict_step(self, batch, batch_idx):
+        x, y, _ = batch
+        return self.scaler.inverse_transform(self.model(x).cpu()), y
 
     def on_train_epoch_end(self):
         self.train_metrics.reset()
