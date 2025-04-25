@@ -1,0 +1,6 @@
+#default.yaml
+
+_target_: src.models.resnet50.ResNet50Model
+
+weights: null
+output_dim: 1

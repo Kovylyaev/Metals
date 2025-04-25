@@ -2,5 +2,5 @@
 
 _target_: src.models.default.DefaultModel
 
-weights: ResNet18_Weights.DEFAULT
+weights: null
 output_dim: 1

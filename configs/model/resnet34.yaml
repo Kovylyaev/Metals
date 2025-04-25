@@ -1,0 +1,6 @@
+#default.yaml
+
+_target_: src.models.resnet34.ResNet34Model
+
+weights: null
+output_dim: 1
