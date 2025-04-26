@@ -1,0 +1,6 @@
+#mobilenet_v3_small.yaml
+
+_target_: src.models.mobilenet_v3_small.mobilenet_v3_smallModel
+
+weights: null
+output_dim: 1
