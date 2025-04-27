@@ -1,6 +1,0 @@
-outs:
-- md5: a65eb86de50b01a244013818baed6e9c.dir
-  size: 558139670
-  nfiles: 1228
-  hash: md5
-  path: microstructure_dataset

@@ -91,6 +91,8 @@ class DefaultModule(L.LightningModule):
         loss = self.criterion(preds, y, None)
 
         batch_metrics = self.test_metrics(self.scaler.inverse_transform(preds.cpu()), self.scaler.inverse_transform(y.cpu()))
+        self.log_dict(batch_metrics, on_step=False, on_epoch=True)
+        self.log("test_loss", loss, on_step=False, on_epoch=True)
         return loss, batch_metrics
     
     def predict_step(self, batch, batch_idx):
