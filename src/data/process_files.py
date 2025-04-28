@@ -22,7 +22,7 @@ def main(clear_dir, source_dir, target_dir, file_format, source_answer_file, tar
         try:
             shutil.rmtree(target_dir)
         except:
-            pass
+            raise ValueError(f"Can't delete directory {target_dir}")
 
     source_dir = Path(source_dir)
     target_dir = Path(target_dir)

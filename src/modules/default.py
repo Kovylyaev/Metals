@@ -2,7 +2,6 @@ import lightning as L
 import torch
 import torchmetrics
 from hydra.utils import instantiate
-import numpy as np
 
 from src.metrics import RMSE
 
