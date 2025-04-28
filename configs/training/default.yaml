@@ -4,7 +4,7 @@ img_dir: data/prepared_data/images
 answer_file: data/prepared_data/answer.csv
 
 batch_size: 16
-n_epochs: 25
+n_epochs: 20
 
 train_size: 0.7
 val_size: 0.15

@@ -10,7 +10,7 @@ defaults:
 project:
   name: "Metals"
   seed: 42
-  device: "cuda"
+  device: "mps"
 
   wandb_entity: "sasha_kovylyaev-hse"
   # experiment_name: "default1"

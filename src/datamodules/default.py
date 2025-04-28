@@ -22,14 +22,15 @@ class DefaultDataModule(L.LightningDataModule):
         self._prepare_data()
 
     def _prepare_data(self):
-        # try:
-        #     print("Подготовка данных...")
-        #     subprocess.run(['make', '-C', str(Path.cwd().parent), 'prepare_data', f'target_column=Fe'], check=True, text=True, capture_output=True)
-        #     print("Подготовка данных завершена")
-        # except subprocess.CalledProcessError as e:
-        #     print("Ошибка при подготовке данных:")
-        #     print(e.stderr)
-        #     raise e
+        try:
+            print("Подготовка данных...")
+            subprocess.run(['make', '-C', str(Path.cwd().parent), 'prepare_data', f'target_column=Fe'], check=True, text=True, capture_output=True)
+            print("Подготовка данных завершена")
+        except subprocess.CalledProcessError as e:
+            print("Ошибка при подготовке данных:")
+            print(e.stderr)
+            raise e
+        
         self.train_imgs, self.val_imgs, self.test_imgs = random_split(list(self.img_dir.iterdir()), [self.cfg.training.train_size, self.cfg.training.val_size, self.cfg.training.test_size])
         self.train_imgs = list(map(str, list(self.train_imgs)))
         self.val_imgs = list(map(str, list(self.val_imgs)))
@@ -68,13 +69,13 @@ class DefaultDataModule(L.LightningDataModule):
         )
 
     def train_dataloader(self):
-        return DataLoader(self.train_dataset, batch_size=self.batch_size, shuffle=True)#, num_workers=4)
+        return DataLoader(self.train_dataset, batch_size=self.batch_size, shuffle=True, num_workers=4)
     
     def val_dataloader(self):
-        return DataLoader(self.val_dataset, batch_size=self.batch_size, shuffle=False)#, num_workers=4)
+        return DataLoader(self.val_dataset, batch_size=self.batch_size, shuffle=False, num_workers=4)
 
     def test_dataloader(self):
-        return DataLoader(self.test_dataset, batch_size=self.batch_size, shuffle=False)#, num_workers=4)
+        return DataLoader(self.test_dataset, batch_size=self.batch_size, shuffle=False, num_workers=4)
     
     def predict_dataloader(self):
-        return DataLoader(self.test_dataset, batch_size=self.batch_size, shuffle=False)#, num_workers=4)
+        return DataLoader(self.test_dataset, batch_size=self.batch_size, shuffle=False, num_workers=4)
