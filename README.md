@@ -42,7 +42,7 @@
 4. Запустите эксперименты в `notebooks/metals-demo.ipynb`
 
 ## Зависимости
-- Python 3.9+
+- Python 3.12.4+
 - остальные в requirements.txt
 
 ## Лицензия
