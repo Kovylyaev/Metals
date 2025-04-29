@@ -5,8 +5,8 @@
 
 ## Полезные ссылки
 - [Отчёт Wandb по проведённым экспериментам](https://api.wandb.ai/links/sasha_kovylyaev-hse/vflkfsup)
-- [Смежный GitHub репозиторий с сайтом, на который загружена модель из лучшеог эксперимента](https://github.com/Kovylyaev/KursMetalApp)
-- [TODO Ссылка на сам сайт] <!--(https://example.com) -->
+- [Смежный GitHub репозиторий с сайтом, на который загружена модель из лучшего эксперимента](https://github.com/Kovylyaev/KursMetalApp)
+- TODO [Ссылка на сам сайт] <!--(https://example.com) -->
 
 ## Проект включает:
 - Обработку и подготовку микроструктурных данных
